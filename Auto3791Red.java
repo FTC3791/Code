@@ -119,7 +119,7 @@ public class Auto3791Red extends LinearOpMode {
     // Note: Reverse movement is obtained by setting a negative distance (not speed)
     encoderDrive(DRIVE_SPEED,  -52,  -52, 20.0, 20);  // S1: Forward 48 Inches with 30 Sec timeout
     sleep(2000);
-    encoderDrive(TURN_SPEED,  -46, 26, 20.0, 20);  // S1: Forward 48 Inches with 30 Sec timeout
+    encoderDrive(TURN_SPEED,  26, -46, 20.0, 20);  // S1: Forward 48 Inches with 30 Sec timeout
     sleep(2000);
     encoderDrive(.1, -24, -24, 20.0, 6);  // S1: Forward 48 Inches with 30 Sec timeout
 
@@ -157,7 +157,7 @@ public class Auto3791Red extends LinearOpMode {
    */
   public void encoderDrive(double speed,
                            double leftInches, double rightInches,
-                           double timeoutS, double bluelimit) throws InterruptedException {
+                           double timeoutS, double redlimit) throws InterruptedException {
     int newLeftTarget;
     int newRightTarget;
 
@@ -181,7 +181,7 @@ public class Auto3791Red extends LinearOpMode {
 
       // keep looping while we are still active, and there is time left, and both motors are running.
       while (opModeIsActive() &&
-              robot.colorSensor.blue()< bluelimit &&
+              robot.colorSensor.blue()< redlimit &&
               (runtime.seconds() < timeoutS) &&
               (robot.leftMotor.isBusy() || robot.rightMotor.isBusy()) ) {
 
