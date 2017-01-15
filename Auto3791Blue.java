@@ -81,8 +81,8 @@ public class Auto3791Blue extends LinearOpMode {
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.15;
-    static final double     TURN_SPEED              = 0.85;
+    static final double     DRIVE_SPEED             = 0.27;
+    static final double     TURN_SPEED              = 0.50;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -112,27 +112,30 @@ public class Auto3791Blue extends LinearOpMode {
                           robot.rightMotor.getCurrentPosition());
         telemetry.update();
 
-        // Wait for the game to start (driver presses PLAY)
+        // Wait for the game to start (driver presses PLAY )
         waitForStart();
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED,  -52,  -52, 20.0, 20);  // S1: Forward 48 Inches with 30 Sec timeout
+        robot.colorServo.setPosition(.9);
+        encoderDrive(DRIVE_SPEED,  -130,  -130, 5.0 , 20);  // S1: Forward 48 Inches with 30 Sec timeout
         sleep(2000);
-        encoderDrive(TURN_SPEED,  -46, 26, 20.0, 20);  // S1: Forward 48 Inches with 30 Sec timeout
+        encoderDrive(TURN_SPEED,  -26, -12, 20.0, 20);  // S1: Forward 48 Inches with 30 Sec timeout
         sleep(2000);
-        encoderDrive(.1, -24, -24, 20.0, 6);  // S1: Forward 48 Inches with 30 Sec timeout
+        //encoderDrive(DRIVE_SPEED, 10, 10, 20.0, 3);
+        encoderDrive(.3, -58, -58, 20.0, 3);  // S1: Forward 48 Inches with 30 Sec timeout
 
+        sleep(2000);
+        robot.colorServo.setPosition(.1);
         sleep(2000);
         robot.colorServo.setPosition(.9);
         sleep(2000);
-        robot.colorServo.setPosition(.1);
         encoderDrive(DRIVE_SPEED,  -24,  -24, 20.0, 20);  // S1: Forward 48 Inches with 30 Sec timeout
-        encoderDrive(.125,  -96,  -96, 20.0, 6);  // S1: Forward 48 Inches with 30 Sec timeout
+        encoderDrive(.3,  -126,  -126, 20.0, 6);  // S1: Forward 48 Inches with 30 Sec timeout
         sleep(500);
         robot.colorServo.setPosition(.9);
         sleep(1000);
-        robot.colorServo.setPosition(.5);
+        robot.colorServo.setPosition(.1);
         sleep(9000);
 
 //        wait(2000);
@@ -184,8 +187,6 @@ public class Auto3791Blue extends LinearOpMode {
                     robot.colorSensor.blue()< bluelimit &&
                    (runtime.seconds() < timeoutS) &&
                    (robot.leftMotor.isBusy() || robot.rightMotor.isBusy()) ) {
-
-
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d blue %7d", newLeftTarget,  newRightTarget, robot.colorSensor.blue());
                 telemetry.addData("Path2",  "Running at %7d :%7d",
